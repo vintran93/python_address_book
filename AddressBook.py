@@ -1,6 +1,5 @@
 # process of taking input, file or memory stream into an object: deserialization into person object to later serialize data into a file if need to persist it
-
-
+# operating system library gives functionalities to work with files and operating system for file path handeling
 import os
 
 
@@ -21,8 +20,12 @@ class Person:
 
 contacts = list()
 
+# check if this file exists, then load, if not ,initialize it
 if os.path.isfile("contacts.csv"):
     with open("contacts.csv") as f:
+        # authomatically read lines into list object csv list
+        # parse our line as we read it in to add to people objects
+        # trim off ending new line character rstrip to get rid of new line character at end and split to allow separation of commas
         csv_list = f.readlines()
         for contact_line in csv_list:
             contact_data = contact_line.rstrip().split(",")
@@ -73,6 +76,7 @@ while users_input != "q":
 with open("contacts.csv", "w") as f:
     for contact in contacts:
         f.write(
+            # this will serialize data into the file and allow us to deserialize later
             f"{contact.first},{contact.last},{contact.age},{contact.phone_number},{contact.email}\n")
 
 print("Thank you for using the address book")
